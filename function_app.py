@@ -20,10 +20,9 @@ import random
 app = func.FunctionApp()
 
 @app.function_name(name="quizgeneration")
-@app.timer_trigger(schedule="0 0 */3 * * *", 
-              arg_name="mytimer",
-              run_on_startup=True) 
-def quizgeneration(mytimer: func.TimerRequest) -> None:
+@app.timer_trigger(schedule="0 0 */3 * * *", arg_name="myTimer", run_on_startup=True,
+              use_monitor=False) 
+def quizgeneration(myTimer: func.TimerRequest) -> None:
     
     service_region = 'eastus'
     vault_name = os.environ.get("KEY_VAULT_NAME")
