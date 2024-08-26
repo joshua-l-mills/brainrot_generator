@@ -7,6 +7,7 @@ from openai import AzureOpenAI
 from moviepy.editor import *
 from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.config import change_settings
+import random
 
 def process_boundary_event(evt):
     result = {label[1:]: val for label, val in evt.__dict__.items()}
@@ -113,6 +114,9 @@ def generate_quiz_video(subtitles, answer_data, audio_path, output_path):
     final_audio_clips.append(background_music_clip)
     final_audio = CompositeAudioClip(final_audio_clips)
 
+    start_time = random.choice(range(0, int(round(vid.duration, 0)) - int(round(audio_clip.duration, 0)) + 5))
+    vid = vid.subclip(start_time, start_time + audio_clip.duration + 1)
+    vid = vid.set_audio(final_audio)
     final_clips = [vid]
     final_clips.extend(permanent_texts)
     final_clips.extend(question_texts)
@@ -120,11 +124,10 @@ def generate_quiz_video(subtitles, answer_data, audio_path, output_path):
     final_clips.append(title_card)
     final_clips.append(subtitle_clip.set_pos(('center','center')))
     # set subtitles, audio, and trim video size
-    result = CompositeVideoClip([vid, subtitle_clip.set_pos(('center','center'))])
     result = CompositeVideoClip(final_clips)
-    result.audio = final_audio
-    result = result.subclip(0, audio_clip.duration + 1)
+    result = result.set_duration(audio_clip.duration + 1)
+    
 
     # write to file
-    result.write_videofile(output_path, audio_codec = 'aac', fps=30)
+    result.write_videofile(output_path, audio_codec = 'aac', fps=50)
     return

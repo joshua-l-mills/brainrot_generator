@@ -1,0 +1,11 @@
+{
+  "scriptFile": "quiz_generator.py",
+  "bindings": [
+    {
+      "name": "quizgenerator",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 0 */3 * * *"
+    }
+  ]
+}

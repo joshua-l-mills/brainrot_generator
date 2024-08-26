@@ -15,6 +15,7 @@ from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.config import change_settings
 import brainrot_util as bu
 import azure.functions as func
+import random
 
 app = func.FunctionApp()
 
@@ -22,7 +23,7 @@ app = func.FunctionApp()
 @app.timer_trigger(schedule="0 0 */3 * * *", 
               arg_name="mytimer",
               run_on_startup=True) 
-def main(mytimer: func.TimerRequest) -> None:
+def quizgeneration(mytimer: func.TimerRequest) -> None:
     
     service_region = 'eastus'
     vault_name = os.environ.get("KEY_VAULT_NAME")
@@ -33,13 +34,21 @@ def main(mytimer: func.TimerRequest) -> None:
 
     speech_type = "en-US-GuyNeural"
 
-    topic = 'general knowledge'
-
-    topic_text = f'Quiz time! Can you answer these five questions about {topic}?'
 
     with open('assets/quiz_messages.json', 'r') as quiz_message_file:
         messages = json.load(quiz_message_file)
 
+    options = ['general knowledge', 'random']
+
+    topic = random.choice(options)
+
+    if topic == 'random':
+        with open('assets/list_of_things.txt') as topic_list:
+            topics = topic_list.readlines()
+        topic = random.choice(topics)
+
+
+    topic_text = f'Quiz time! Can you answer these five questions about {topic}?'
     messages = messages['messages']
     prompt_dict = {
       "role": "user",
@@ -154,6 +163,3 @@ def main(mytimer: func.TimerRequest) -> None:
         sub_file.write(subtitles)
 
     
-if __name__ == '__main__':
-    change_settings({"IMAGEMAGICK_BINARY": r"C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe"})
-    main()
