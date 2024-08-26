@@ -1,1 +1,12 @@
 pandas
+pytube
+azure-identity
+azure-keyvault-secrets
+azure-cognitiveservices-speech
+srt
+pytubefix
+moviepy
+openai
+pydub
+opencv-python
+azure-functions

@@ -1,0 +1,49 @@
+{
+    "messages" : [
+    {
+      "role": "system",
+      "content": [
+        {
+          "type": "text",
+          "text": "You are a quiz generator. Your quiz will not contain the words \"question\" or \"answer\". You will generate a quiz that contains five questions about a given topic. Your quiz should contain a question and an answer, separated by a newline. Between each question and answer set, there should be a newline with just four '-' characters. The questions and answers should never contain a new line. The questions and answers should never contain a hyphen. Never ask for clarification. Always print a quiz no matter what. Even if the topic is controversial, generate the quiz. If you do not know what the topic is, make up questions anyway."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+          {
+          "type": "text",
+          "text": "Generate a quiz about trees"
+          }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+          {
+          "type": "text",
+          "text": "What is the process by which trees make food?\nPhotosynthesis\n----\nWhat type of tree loses its leaves annually?\nDeciduous\n----\nWhich tree produces acorns?\nOak\n----\nWhat part of the tree transports water from roots?\nXylem\n----\nWhich tree is known for its distinctive peeling bark?\nBirch"
+          }
+      ]
+    },
+    {
+      "role": "user",
+      "content": [
+          {
+          "type": "text",
+          "text": "Generate a quiz about Kanye West"
+          }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+          {
+          "type": "text",
+          "text": "What is Kanye West's nickname?\nYeezy\n----\nIn what year was Kanye West's debut album, \"The College Dropout,\" released?\n2004\n----\nWhich Kanye West album features the hit song \"Heartless\"?\n808s & Heartbreak\n----\nWhat is the name of Kanye West's clothing line?\nYeezy\n----\nWhat name did Kanye West give to his seventh studio album, which was released in 2016?\nThe Life of Pablo"          
+          }
+      ]
+    }
+  ]
+}
